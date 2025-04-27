@@ -1,4 +1,4 @@
-from flask import Flask, Response
+from flask import Flask, Response, request
 from datetime import datetime
 
 app = Flask(__name__)
@@ -15,7 +15,8 @@ def log_message(endpoint):
 @app.route('/your_name')
 def your_name():
     log_message("/your_name")
-    return "Hello world from <your_name>!"
+    name = request.args.get('name', '<your_name>')  # Get 'name' from query string, default to '<your_name>'
+    return f"Hello world from {name}!"
 
 # Endpoint: /datetime
 @app.route('/datetime')
